@@ -3,17 +3,18 @@ kind: Ingress
 metadata:
   name: petclinic-ingress
   namespace: petclinic
-
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: instance
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:450444046629:certificate/b84adda6-97cb-42de-bcd7-44c401280638
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
 
 spec:
   ingressClassName: alb
-
   rules:
-    - http:
+    - host: user25.weplat.shop
+      http:
         paths:
           - path: /
             pathType: Prefix
